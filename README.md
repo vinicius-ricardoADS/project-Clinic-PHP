@@ -1,1 +1,1 @@
-# Clinica-PHP
+# Medical clinic
