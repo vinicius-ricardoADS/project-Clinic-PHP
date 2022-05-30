@@ -1,0 +1,40 @@
+img {
+    height: 30px;
+}
+
+.navbar {
+    height: 70px;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.h1 {
+    text-align: center;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+table {
+    border: 1px solid;
+    text-align: center;
+}
+
+.alert {
+    width: 30%;
+}
+
+.consultas {
+    background-color: #00d1b2;
+}
+
+.modal-content {
+    width: 130%;
+}
