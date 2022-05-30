@@ -1,1 +1,1 @@
-# project-Clinica-PHP
+# Clinica-PHP
