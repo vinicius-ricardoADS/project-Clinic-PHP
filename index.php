@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
-    <title>Document</title>
+    <title>Clinica médica</title>
 </head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -34,7 +34,7 @@
     <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <img src="styles/clinica-logo.png" alt="logo">
+                <img src="styles/logo-clinica.png" alt="logo">
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pacientes</a>
@@ -53,17 +53,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="adicionarConsulta.php">Adicionar consulta</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href='index.php?op=logout'>Logout</a>
-            </li>
         </ul>
+        <a class="nav-link" href='index.php?op=logout'><button class="btn btn-primary sair">Sair</button></a>
     </nav>
     <?php
         require_once "configs/autenticarLogin.php";
         require_once ("configs/cadastrarAdmin.php");
         if (isset($_SESSION["login_user"])) {
             echo "<div class='container h1'>
-                <h1>Seja bem vindo</h1>
+                <h1>Seja bem vindo a nossa clínica</h1>
             </div>";
         } else {
             echo "<div class='container h1'>
@@ -78,12 +76,15 @@
                         <form action='index.php' method='POST'>
                             <div class='mb-3'>
                                 <label for='inputEmailCadastro' class='form-label'>Login</label>
-                                <input type='email' name='login' class='form-control' id='inputEmailCadastro' aria-describedby='emailHelp'>
-                                <div id='emailHelp' class='form-text'>Nunca compartilharemos seu email</div>
+                                <input required type='email' name='login' class='form-control' id='inputEmailCadastro' aria-describedby='loginEmail'>
+                                <div id='loginEmail' class='form-text'><strong>Nunca compartilharemos seu email</strong></div>
                             </div>
                             <label for='inputPasswordCadastro' class='form-label'>Password</label>
-                            <input type='password' name='senha' id='inputPasswordCadastro' class='form-control' aria-describedby='passwordHelpBlock'>
-                            <button name='logar' class='btn btn-primary'>Submit</button>
+                            <input required type='password' name='senha' id='inputPasswordCadastro' class='form-control' aria-describedby='passwordHelpBlock'>
+                            <div id='passwordHelpBlock' class='form-text'>
+                                <strong>Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter espaços, ou emojis.</strong>
+                            </div>
+                            <button name='logar' class='btn btn-primary sair'>Logar</button>
                         </form>
                     </div>
                     <div class='col-6'>
@@ -93,15 +94,15 @@
                         <form action='index.php' method='POST'>
                             <div class='mb-3'>
                                 <label for='inputEmailLogin' class='form-label'>Login</label>
-                                <input type='email' name='login' class='form-control' id='inputEmailLogin' aria-describedby='emailHelp'>
-                                <div id='emailHelp' class='form-text'>Nunca compartilharemos seu email</div>
+                                <input required type='email' name='login' class='form-control' id='inputEmailLogin' aria-describedby='emailHelp'>
+                                <div id='emailHelp' class='form-text'><strong>Nunca compartilharemos seu email</strong></div>
                             </div>
                             <label for='inputPasswordLogin' class='form-label'>Password</label>
-                            <input type='password' name='senha' id='inputPasswordLogin' class='form-control' aria-describedby='passwordHelpBlock'>
+                            <input required type='password' name='senha' id='inputPasswordLogin' class='form-control' aria-describedby='passwordHelpBlock'>
                             <div id='passwordHelpBlock' class='form-text'>
-                                Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter espaços, ou emojis.
+                                <strong>Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter espaços, ou emojis.</strong>
                             </div>
-                            <button name='cadastrar' class='btn btn-primary'>Submit</button>
+                            <button name='cadastrar' class='btn btn-primary sair'>Cadastrar</button>
                         </form>
                     </div>
                 </div>

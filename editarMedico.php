@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
-    <title>Document</title>
+    <title>Medicos</title>
 </head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -33,7 +33,7 @@
     <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <img src="styles/clinica-logo.png" alt="logo">
+                <img src="styles/logo-clinica.png" alt="logo">
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pacientes</a>
@@ -45,17 +45,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Medicos</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#scrollspyHeading3">Listar</a></li>
-                    <li><a class="dropdown-item" href="#scrollspyHeading4">Cadastrar</a></li>
+                    <li><a class="dropdown-item" href="listarMedicos.php">Listar</a></li>
+                    <li><a class="dropdown-item" href="cadastrarMedicos.php">Cadastrar</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="adicionarConsulta.php">Adicionar consulta</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href='index.php?op=logout'>Logout</a>
-            </li>
         </ul>
+        <a class="nav-link" href='index.php?op=logout'><button class="btn btn-primary sair">Sair</button></a>
     </nav>
     <?php
         require_once "configs/editarMedicoBD.php";

@@ -2,7 +2,9 @@
     session_start();
     require_once "configs/BancoDados.php";
     require_once "configs/Medicos.php";
+    require_once "configs/Pacientes.php";
     require_once "configs/Especialidade.php";
+    require_once "configs/Consultas.php";
     if (!isset($_SESSION["login_user"])) {
         header("Location: index.php");
     }
@@ -16,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
-    <title>Document</title>
+    <title>Médicos</title>
 </head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -33,7 +35,7 @@
     <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <img src="styles/clinica-logo.png" alt="logo">
+                <img src="styles/logo-clinica.png" alt="logo">
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pacientes</a>
@@ -52,10 +54,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="adicionarConsulta.php">Adicionar consulta</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href='index.php?op=logout'>Logout</a>
-            </li>
         </ul>
+        <a class="nav-link" href='index.php?op=logout'><button class="btn btn-primary sair">Sair</button></a>
     </nav>
     <?php
         require_once "configs/funcs.php";
@@ -63,13 +63,14 @@
     <div class="container">
         <div class="row">
             <div class="col align-self-center">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Data de cadastro</th>
                             <th>Especialidade</th>
+                            <th>Consultas</th>
                             <th>Deletar</th>
                             <th>Editar</th>
                         </tr>
@@ -84,9 +85,9 @@
                                 echo "<td>". $medicos["nome"]. "</td>";
                                 echo "<td>". $medicos["dataCadastro"]. "</td>";
                                 echo "<td>". $especialidades["nome"]. "</td>";
-                                echo "<td><button class='btn btn-primary consultas'>Ver consultas</button>"."</td>";
-                                echo "<td><a href='listarPacientes.php?deletarPaciente=".$medicos["id"]."'><button class='btn btn-primary'>Deletar Pessoa</button></a>"."</td>";
-                                echo "<td><a href='editarMedico.php?id=".$medicos["id"]."'><button class='btn btn-primary'>Editar Pessoa</button></a>"."</td>";
+                                echo "<td><a href='listarMedicos.php?consultas=".$medicos["id"]."'><button id=".$medicos["id"]." name='consulta' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-primary consultas'>Ver consultas consultas</button>"."</td>";
+                                echo "<td><a href='listarMedicos.php?deletarMedico=".$medicos["id"]."'><button class='btn btn-primary deletar'>Deletar Médico</button></a>"."</td>";
+                                echo "<td><a href='editarMedico.php?id=".$medicos["id"]."'><button class='btn btn-primary editar'>Editar Médico</button></a>"."</td>";
                                 echo "</tr>";
                             }
                         ?>
@@ -95,10 +96,60 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Consultas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Medico</th>
+                            <th>Paciente</th>
+                            <th>Data</th>
+                            <th>Cancelar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            if (isset($_GET["consultas"]) and !empty($_GET["consultas"])) {
+                                if (Consulta::verificaSeExisteIdMedico($_GET["consultas"])) {
+                                    $listaConsulta = Consulta::listaConsultasMedicos($_GET["consultas"]);
+                                    foreach ($listaConsulta as $consulta) {
+                                        $nomePaciente = Pacientes::getPessoa($consulta["idPaciente"]);
+                                        $nomeMedico = Medicos::getMedico($consulta["idMedico"]);
+                                        echo "<tr>";
+                                        echo "<td>". $nomeMedico["nome"]. "</td>";
+                                        echo "<td>". $nomePaciente["nome"]. "</td>";
+                                        echo "<td>". $consulta["data"]. "</td>";
+                                        echo "<td><a href='listarPacientes.php?deletarConsulta=".$consulta["id"]."'><button class='btn btn-primary deletar'>Deletar Consulta</button></a>"."</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr>";
+                                    echo "<td colspan='4'><h4>Nenhuma consulta</h4></td>";
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <!-- Ação para ocultar a div depois de 5 segundos -->
     <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#exampleModal').modal('show'); });
         document.addEventListener('DOMContentLoaded', function(){ 
             setTimeout(function() {
                 $(".alert").fadeOut().empty(); 

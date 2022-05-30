@@ -34,7 +34,7 @@
     <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <img src="styles/clinica-logo.png" alt="logo">
+                <img src="styles/logo-clinica.png" alt="logo">
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pacientes</a>
@@ -53,10 +53,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="adicionarConsulta.php">Adicionar consulta</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href='index.php?op=logout'>Logout</a>
-            </li>
         </ul>
+        <a class="nav-link" href='index.php?op=logout'><button class="btn btn-primary sair">Sair</button></a>
     </nav>
     <?php
         require_once "configs/adicionarConsultaBD.php";

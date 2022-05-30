@@ -17,10 +17,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
-    <title>Document</title>
+    <title>Pacientes</title>
 </head>
 <body>
-    
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -35,7 +34,7 @@
     <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <img src="styles/clinica-logo.png" alt="logo">
+                <img src="styles/logo-clinica.png" alt="logo">
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pacientes</a>
@@ -54,10 +53,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="adicionarConsulta.php">Adicionar consulta</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href='index.php?op=logout'>Logout</a>
-            </li>
         </ul>
+        <a class="nav-link" href='index.php?op=logout'><button class="btn btn-primary sair">Sair</button></a>
     </nav>
     <?php
         require_once "configs/funcs.php";
@@ -65,7 +62,7 @@
     <div class="container">
         <div class="row">
             <div class="col align-self-center">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -87,8 +84,8 @@
                                 echo "<td>". $paciente["dataNascimento"]. "</td>";
                                 echo "<td>". $paciente["dataCadastro"]. "</td>";
                                 echo "<td><a href='listarPacientes.php?consultas=".$paciente["id"]."'><button id=".$paciente["id"]." name='consulta' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-primary consultas'>Ver consultas consultas</button>"."</td>";
-                                echo "<td><a href='listarPacientes.php?deletarPaciente=".$paciente["id"]."'><button class='btn btn-primary'>Deletar Pessoa</button></a>"."</td>";
-                                echo "<td><a href='editarPaciente.php?id=".$paciente["id"]."'><button class='btn btn-primary'>Editar Pessoa</button></a>"."</td>";
+                                echo "<td><a href='listarPacientes.php?deletarPaciente=".$paciente["id"]."'><button class='btn btn-primary deletar'>Deletar Pessoa</button></a>"."</td>";
+                                echo "<td><a href='editarPaciente.php?id=".$paciente["id"]."'><button class='btn btn-primary editar'>Editar Pessoa</button></a>"."</td>";
                                 echo "</tr>";
                             }
                         ?>
@@ -103,10 +100,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Consultas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -119,25 +117,27 @@
                     <tbody>
                         <?php
                             if (isset($_GET["consultas"]) and !empty($_GET["consultas"])) {
-                                $listaConsulta = Consulta::listaConsultas($_GET["consultas"]);
-                                $nomePaciente = Pacientes::getPessoa($_GET["consultas"]);
-                                foreach ($listaConsulta as $consulta) {
-                                    $nomeMedico = Medicos::getMedico($consulta["idMedico"]);
+                                if (Consulta::verificaSeExisteIdPaciente($_GET["consultas"])) {
+                                    $listaConsulta = Consulta::listaConsultas($_GET["consultas"]);
+                                    $nomePaciente = Pacientes::getPessoa($_GET["consultas"]);
+                                    foreach ($listaConsulta as $consulta) {
+                                        $nomeMedico = Medicos::getMedico($consulta["idMedico"]);
+                                        echo "<tr>";
+                                        echo "<td>". $nomeMedico["nome"]. "</td>";
+                                        echo "<td>". $nomePaciente["nome"]. "</td>";
+                                        echo "<td>". $consulta["data"]. "</td>";
+                                        echo "<td><a href='listarPacientes.php?deletarConsulta=".$consulta["id"]."'><button class='btn btn-primary deletar'>Deletar Consulta</button></a>"."</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
                                     echo "<tr>";
-                                    echo "<td>". $nomeMedico["nome"]. "</td>";
-                                    echo "<td>". $nomePaciente["nome"]. "</td>";
-                                    echo "<td>". $consulta["data"]. "</td>";
-                                    echo "<td><button class='btn btn-primary'>Deletar Pessoa</button></a>"."</td>";
+                                    echo "<td colspan='4'><h4>Nenhuma consulta</h4></td>";
                                     echo "</tr>";
                                 }
                             }
                         ?>
                     </tbody>
                 </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
             </div>
         </div>
