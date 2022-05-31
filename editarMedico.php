@@ -59,7 +59,7 @@
         require_once "configs/editarMedicoBD.php";
     ?>
     <div class="container">
-        <form method="POST" action="editarPaciente.php">
+        <form method="POST" action="editarMedico.php">
             <div class="mb-3">
                 <label for="inputNome" class="form-label">Nome</label>
                 <input name="nome" type="text" class="form-control" id="inputNome" value="<?= $medico["nome"]?>">
@@ -84,7 +84,7 @@
                     <option value="7">Psiquiatra</option>
                 </select>
             </div>
-            <input type="hidden" name="id" value="<?= $paciente["id"]?>">
+            <input type="hidden" name="id" value="<?= $medico["id"]?>">
             <button name="cadastrar" type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
     </div>
