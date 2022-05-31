@@ -71,11 +71,11 @@
             }
         }
 
-        public static function updateMedico($id, $nome, $idEspecialidade) {
+        public static function updateMedico($id, $nome, $data, $idEspecialidade) {
             try {
                 $conexao = Conexao::getConexao();
-                $stmt = $conexao->prepare("UPDATE medicos set nome=?, idEspecialidade=? WHERE id = ?");
-                $stmt->execute([$nome, $idEspecialidade, $id]);
+                $stmt = $conexao->prepare("UPDATE medicos set nome=?, dataCadastro = ?, idEspecialidade=? WHERE id = ?");
+                $stmt->execute([$nome, $data, $idEspecialidade, $id]);
                 if ($stmt->rowCount() > 0) {
                     return true;
                 } else {
