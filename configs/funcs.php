@@ -7,10 +7,29 @@
         $id = $_GET["deletarPaciente"];
         if (Pacientes::verificaSeExisteId($id)) {
             $verificaConsulta = Consulta::verificaSeExisteIdPaciente($id);
-            foreach ($verificaConsulta as $consulta) {
-                $removeConsulta = Consulta::dropConsulta($consulta["id"]);
-            }
-            if ($removeConsulta) {
+            if ($verificaConsulta != null) {
+                foreach ($verificaConsulta as $consulta) {
+                    $removeConsulta = Consulta::dropConsulta($consulta["id"]);
+                }
+                if ($removeConsulta) {
+                    $res = Pacientes::dropPaciente($id);
+                    if ($res) {
+                        echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
+                            <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                            <div>
+                                Deletado com sucesso
+                            </div>
+                        </div>";
+                    } else {
+                        echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                            <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                                Erro ao deletar
+                            </div>
+                        </div>";
+                    }
+                }
+            } else {
                 $res = Pacientes::dropPaciente($id);
                 if ($res) {
                     echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
@@ -43,10 +62,29 @@
         $id = $_GET["deletarMedico"];
         if (Medicos::getId($id)) {
             $verificaConsulta = Consulta::verificaSeExisteIdMedico($id);
-            foreach ($verificaConsulta as $consulta) {
-                $removeConsulta = Consulta::dropConsulta($consulta["id"]);
-            }
-            if ($removeConsulta) {
+            if ($verificaConsulta != null) {
+                foreach ($verificaConsulta as $consulta) {
+                    $removeConsulta = Consulta::dropConsulta($consulta["id"]);
+                }
+                if ($removeConsulta) {
+                    $res = Medicos::deleteMedico($id);
+                    if ($res) {
+                        echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
+                            <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                            <div>
+                                Deletado com sucesso
+                            </div>
+                        </div>";
+                    } else {
+                        echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                            <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
+                            <div>
+                                Erro ao deletar
+                            </div>
+                        </div>";
+                    }
+                }
+            } else {
                 $res = Medicos::deleteMedico($id);
                 if ($res) {
                     echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
