@@ -10,6 +10,10 @@ img {
     margin-top: 100px;
 }
 
+.c640 {
+    display: block;
+}
+
 .h1 {
     text-align: center;
 }
@@ -38,6 +42,8 @@ table {
 
 body {
     background-color: #e6e6fa;
+    min-width: 600px;
+    min-height: 800px;
 }
 
 .bg-light {
