@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="icon" type="imagem/png" href="styles/logo-clinica.png" />
     <title>Document</title>
 </head>
 <body>
@@ -67,7 +68,7 @@
             </div>
             <div class="mb-3">
                 <label for="inputSelect" class="form-label">Medicos</label>
-                <select class="form-select" aria-label="Default select example" name="idMedico" id="inputSelect">
+                <select required class="form-select" aria-label="Default select example" name="idMedico" id="inputSelect">
                 <option selected></option>
                 <?php
                     $listaMedicos = Medicos::listaMedicos();
@@ -79,7 +80,7 @@
             </div>
             <div class="mb-3">
                 <label for="inputSelectPacient" class="form-label">Pacientes</label>
-                <select class="form-select" aria-label="Default select example" name="idPaciente" id="inputSelectPacient">
+                <select required class="form-select" aria-label="Default select example" name="idPaciente" id="inputSelectPacient">
                 <option selected></option>
                 <?php
                     $listaPacientes = Pacientes::listaPacientes();
@@ -91,11 +92,11 @@
             </div>
             <div class="mb-3">
                 <label for="inputData" class="form-label">Data da consulta</label>
-                <input name="data" type="date" class="form-control" id="inputData">
+                <input required name="data" type="date" class="form-control" id="inputData">
             </div>
             <div class="mb-3">
                 <label for="inputTime" class="form-label">Hora da consulta</label>
-                <input name="time" type="time" class="form-control" id="inputTime">
+                <input required name="time" type="time" class="form-control" id="inputTime">
             </div>
             <button name="cadastrar" type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
