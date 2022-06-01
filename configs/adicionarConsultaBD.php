@@ -12,22 +12,32 @@
             $time = $_POST["time"];
             $datetime = "$data "."$time";
             $atualData = date("Y-m-d");
+            $horaAtual = date("H:i");
             $timestamp_dt_atual = strtotime($atualData);
             $timestamp_data = strtotime($data);
             if ($timestamp_data >= $timestamp_dt_atual) {
-                $res = Consulta::addConsulta($idMedico, $idPaciente, $datetime);
-                if ($res) {
-                    echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
-                        <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
-                        <div>
-                            Consulta adicionada com sucesso
-                        </div>
-                    </div>";
+                if ($time >= $horaAtual) {
+                    $res = Consulta::addConsulta($idMedico, $idPaciente, $datetime);
+                    if ($res) {
+                        echo "<div class='alert alert-success d-flex align-items-center' role='alert'>
+                            <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                            <div>
+                                Consulta adicionada com sucesso
+                            </div>
+                        </div>";
+                    } else {
+                        echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
+                            <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
+                            <div>
+                                Consulta não foi adicionada
+                            </div>
+                        </div>";
+                    }
                 } else {
                     echo "<div class='alert alert-danger d-flex align-items-center' role='alert'>
                         <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Success:'><use xlink:href='#check-circle-fill'/></svg>
                         <div>
-                            Consulta não foi adicionada
+                            Hora inválida
                         </div>
                     </div>";
                 }
