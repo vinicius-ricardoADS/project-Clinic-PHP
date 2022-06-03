@@ -111,6 +111,8 @@
         }
     ?>
 
+    <!--Feito por Vinicius Ricardo Rosa Noli e Vitor Bonelli-->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <!-- Ação para ocultar a div depois de 5 segundos -->
