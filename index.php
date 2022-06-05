@@ -111,7 +111,7 @@
         }
     ?>
 
-    <!--Feito por Vinicius Ricardo Rosa Noli e Vitor Bonelli-->
+    <!--Feito por Alexandre Rodrigues Strapasson, Vinicius Ricardo Rosa Noli e Vitor Alves Bonelli-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
